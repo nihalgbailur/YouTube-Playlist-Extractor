@@ -1,11 +1,21 @@
 {
   "manifest_version": 3,
   "name": "YouTube Playlist Extractor",
-  "version": "1.0",
-  "description": "Extract video URLs from YouTube playlists.",
-  "permissions": ["tabs", "scripting"],
+  "version": "2.0",
+  "description": "Extract YouTube playlist URLs and add them to NotebookLM.",
+  "permissions": ["identity", "scripting", "tabs"],
   "host_permissions": ["https://www.youtube.com/*"],
+  "oauth2": {
+    "client_id": "YOUR_GOOGLE_CLIENT_ID",
+    "scopes": ["https://www.googleapis.com/auth/drive.file"]
+  },
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   }
 }
