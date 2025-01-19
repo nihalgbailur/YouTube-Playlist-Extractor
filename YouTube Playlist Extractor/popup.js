@@ -3,9 +3,6 @@ document.getElementById("extract-btn").addEventListener("click", async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     if (tab && tab.url.includes("youtube.com/playlist")) {
-      console.log("Active Tab:", tab);
-
-      // Use chrome.scripting.executeScript to extract playlist URLs
       chrome.scripting.executeScript(
         {
           target: { tabId: tab.id },
@@ -13,11 +10,7 @@ document.getElementById("extract-btn").addEventListener("click", async () => {
         },
         (result) => {
           const urls = result[0]?.result || [];
-          console.log("Extracted URLs:", urls);
-
-          // Display the extracted URLs in the textarea
-          const outputElement = document.getElementById("output");
-          outputElement.value = urls.length
+          document.getElementById("output").value = urls.length
             ? urls.join("\n")
             : "No videos found or invalid playlist structure.";
         }
@@ -31,7 +24,21 @@ document.getElementById("extract-btn").addEventListener("click", async () => {
   }
 });
 
-// Function executed in the YouTube playlist page context
+document.getElementById("copy-btn").addEventListener("click", () => {
+  const output = document.getElementById("output");
+  if (output.value) {
+    navigator.clipboard
+      .writeText(output.value)
+      .then(() => alert("URLs copied to clipboard!"))
+      .catch((err) => {
+        console.error("Failed to copy text:", err);
+        alert("Failed to copy URLs. Check clipboard permissions and try again.");
+      });
+  } else {
+    alert("No URLs to copy!");
+  }
+});
+
 function extractPlaylistURLs() {
   const videoLinks = Array.from(
     document.querySelectorAll(
