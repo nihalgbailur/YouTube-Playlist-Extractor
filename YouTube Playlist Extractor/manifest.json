@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Playlist Extractor",
+  "version": "1.0",
+  "description": "Extract video URLs from YouTube playlists.",
+  "permissions": ["tabs", "scripting"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
